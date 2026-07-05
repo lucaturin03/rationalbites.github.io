@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Un condizionatore qualsiasi diventa HomeKit con un ESP32 — Bit &amp; Bottiglie</title>
+  <meta name="description" content="Come collegare un condizionatore Midea a HomeKit via UART con un ESP32-C3.">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+      <a class="logo" href="../index.html">bit&amp;bottiglie<span class="cursor">_</span></a>
+      <nav class="nav">
+        <a href="../index.html">Home</a>
+        <a href="../blog.html" class="attiva">Blog</a>
+        <a href="../chi-sono.html">Chi sono</a>
+        <a href="../contatti.html">Contatti</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="contenuto-stretto">
+    <article class="articolo">
+
+      <header class="articolo-testata">
+        <p class="meta">05 lug 2026 · 6 min di lettura ·
+          <span class="tag">#esp32</span>
+          <span class="tag">#domotica</span>
+          <span class="tag">#homekit</span>
+        </p>
+        <h1>Un condizionatore qualsiasi diventa HomeKit con un ESP32</h1>
+        <p class="sottotitolo">Dal telecomando a infrarossi alla UART diretta, senza hub e senza cloud.</p>
+      </header>
+
+      <p>La maggior parte dei condizionatori "smart" richiede l'app del produttore,
+      un account, e un cloud che un giorno smetterà di esistere. Con un
+      microcontrollore da pochi euro si può fare di meglio: parlare direttamente
+      con la macchina e presentarla a HomeKit come un accessorio nativo.</p>
+
+      <h2>Il primo tentativo: infrarossi</h2>
+
+      <p>L'approccio ovvio è replicare il telecomando. La libreria
+      <code>IRremoteESP8266</code> supporta decine di protocolli e funziona,
+      ma è comunicazione a senso unico: il condizionatore non conferma nulla,
+      e se qualcuno usa il telecomando fisico lo stato in HomeKit resta sbagliato.</p>
+
+      <blockquote>
+        <p>Un sistema domotico che mente sullo stato dei dispositivi è peggio
+        di nessun sistema domotico.</p>
+      </blockquote>
+
+      <h2>La svolta: la porta USB nasconde una UART</h2>
+
+      <p>Molte unità Midea (e i tanti marchi che ci costruiscono sopra) hanno una
+      porta USB-A pensata per il dongle Wi-Fi ufficiale. Non è vero USB: dietro
+      quei pin c'è una seriale a 5&nbsp;V. Con un level shifter bidirezionale
+      si dialoga in modo affidabile con l'elettronica di bordo.</p>
+
+      <figure>
+        <img src="../img/schema-collegamento.png" alt="Schema di collegamento tra ESP32-C3 e porta USB del condizionatore">
+        <figcaption>Fig. 1 — ESP32-C3, level shifter BSS138 e porta USB-A dell'unità interna.</figcaption>
+      </figure>
+
+      <h2>Il firmware</h2>
+
+      <p>Con <code>HomeSpan</code> per la parte HomeKit e <code>MideaUART</code>
+      per il protocollo, il cuore del firmware sta in poche righe:</p>
+
+      <pre><code>#include "HomeSpan.h"
+#include &lt;Appliance/AirConditioner/AirConditioner.h&gt;
+
+dudanov::midea::ac::AirConditioner ac;
+
+void setup() {
+  Serial1.begin(9600, SERIAL_8N1, RX_PIN, TX_PIN);
+  ac.setStream(&amp;Serial1);
+  ac.setup();
+
+  homeSpan.begin(Category::AirConditioners, "Clima Studio");
+  // ... definizione dei servizi HeaterCooler
+}
+
+void loop() {
+  homeSpan.poll();
+  ac.loop();
+}</code></pre>
+
+      <p>Il vantaggio rispetto agli infrarossi è enorme: la UART è bidirezionale,
+      quindi ogni cambiamento — anche dal telecomando fisico — viene letto
+      e riportato in HomeKit entro un paio di secondi.</p>
+
+      <h2>Cosa serve, in sintesi</h2>
+
+      <p>Un ESP32-C3 SuperMini, un level shifter BSS138 per passare dai 3,3&nbsp;V
+      del microcontrollore ai 5&nbsp;V della seriale, un connettore USB-A maschio
+      sacrificabile e una mezz'ora di saldature. Totale: meno di dieci euro.</p>
+
+      <hr>
+
+      <p><em>Nei prossimi post: come alimentare il tutto direttamente dalla porta
+      del condizionatore e come gestire gli aggiornamenti OTA.</em></p>
+
+      <nav class="nav-articoli">
+        <a href="wordpress-header-sticky.html">← Header sticky in due parti</a>
+        <a href="../blog.html">Tutti i post →</a>
+      </nav>
+
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>© 2026 Luca — bit&amp;bottiglie</span>
+      <span><a href="../contatti.html">Contatti</a> · <a href="https://github.com/tuousername">GitHub</a></span>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,11 +1,37 @@
----
-layout: default
-title: Pagina non trovata
-permalink: /404.html
----
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pagina non trovata — Bit &amp; Bottiglie</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
 
-# 404
+  <header class="header">
+    <div class="header-inner">
+      <a class="logo" href="index.html">bit&amp;bottiglie<span class="cursor">_</span></a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="blog.html">Blog</a>
+        <a href="chi-sono.html">Chi sono</a>
+        <a href="contatti.html">Contatti</a>
+      </nav>
+    </div>
+  </header>
 
-La pagina che cerchi non esiste o è stata spostata.
+  <main class="errore">
+    <p class="codice-errore">404</p>
+    <p>Questa pagina non esiste, è stata spostata, oppure l'ho rotta io.</p>
+    <p><a href="index.html">Torna alla home</a> o dai un'occhiata al <a href="blog.html">blog</a>.</p>
+  </main>
 
-[Torna alla home]({{ '/' | relative_url }}) oppure guarda l'[archivio]({{ '/archivio/' | relative_url }}).
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>© 2026 Luca — bit&amp;bottiglie</span>
+      <span><a href="contatti.html">Contatti</a> · <a href="https://github.com/tuousername">GitHub</a></span>
+    </div>
+  </footer>
+
+</body>
+</html>

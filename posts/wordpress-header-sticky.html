@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Header sticky in due parti su un tema a blocchi — Bit &amp; Bottiglie</title>
+  <meta name="description" content="Come realizzare un header sticky a due sezioni su un tema FSE di WordPress con CSS e poche righe di JavaScript.">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+      <a class="logo" href="../index.html">bit&amp;bottiglie<span class="cursor">_</span></a>
+      <nav class="nav">
+        <a href="../index.html">Home</a>
+        <a href="../blog.html" class="attiva">Blog</a>
+        <a href="../chi-sono.html">Chi sono</a>
+        <a href="../contatti.html">Contatti</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="contenuto-stretto">
+    <article class="articolo">
+
+      <header class="articolo-testata">
+        <p class="meta">21 giu 2026 · 4 min di lettura ·
+          <span class="tag">#wordpress</span>
+          <span class="tag">#css</span>
+          <span class="tag">#javascript</span>
+        </p>
+        <h1>Header sticky in due parti su un tema a blocchi</h1>
+        <p class="sottotitolo">Barra superiore che scompare, navigazione che resta: senza plugin.</p>
+      </header>
+
+      <p>Il pattern è classico: una barra sottile in alto con contatti o promozioni,
+      e sotto la navigazione vera e propria. Allo scroll la barra scompare e la
+      navigazione resta fissa. Nei temi FSE di WordPress non c'è un'opzione per
+      farlo, ma bastano CSS e un observer.</p>
+
+      <h2>Il CSS</h2>
+
+      <pre><code>.header-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: box-shadow 0.2s ease;
+}
+
+.header-nav.scrolled {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}</code></pre>
+
+      <h2>Il JavaScript</h2>
+
+      <p>Invece di ascoltare l'evento <code>scroll</code> — che scatta decine di
+      volte al secondo — conviene un <code>IntersectionObserver</code> su una
+      sentinella invisibile:</p>
+
+      <pre><code>const sentinella = document.createElement('div');
+document.body.prepend(sentinella);
+
+const nav = document.querySelector('.header-nav');
+
+new IntersectionObserver(([entry]) =&gt; {
+  nav.classList.toggle('scrolled', !entry.isIntersecting);
+}).observe(sentinella);</code></pre>
+
+      <p>Zero calcoli a ogni frame, zero jank. Su WordPress il tutto si può
+      iniettare con un plugin di snippet come WPCode, senza toccare il tema.</p>
+
+      <nav class="nav-articoli">
+        <a href="benvenuto.html">← Benvenuti: perché questo blog</a>
+        <a href="esp32-homekit-condizionatore.html">HomeKit con un ESP32 →</a>
+      </nav>
+
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>© 2026 Luca — bit&amp;bottiglie</span>
+      <span><a href="../contatti.html">Contatti</a> · <a href="https://github.com/tuousername">GitHub</a></span>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,396 @@
+/* ============================================================
+   STYLE.CSS — foglio di stile unico per tutto il sito
+   Palette: bianco carta, inchiostro scuro, accento rosso vino
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&display=swap');
+
+:root {
+  --carta:  #ffffff;   /* sfondo pagina */
+  --ink:    #1b1a17;   /* testo e bande scure */
+  --grigio: #6e6b63;   /* testo secondario */
+  --vino:   #7a1f33;   /* accento: link, tag, dettagli */
+  --vino-chiaro: #a34457;
+  --filo:   #e7e4dc;   /* filetti e bordi */
+  --codice: #f5f3ee;   /* sfondo blocchi codice */
+
+  --display: "Fraunces", Georgia, serif;
+  --testo:   "Iowan Old Style", "Charter", Georgia, serif;
+  --mono:    ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+}
+
+/* ---------- Reset minimo ---------- */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--carta);
+  color: var(--ink);
+  font-family: var(--testo);
+  font-size: 1.125rem;
+  line-height: 1.75;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--vino); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--vino-chiaro); }
+a:focus-visible { outline: 2px solid var(--vino); outline-offset: 3px; border-radius: 2px; }
+
+/* ============================================================
+   HEADER — banda scura con nome del sito e navigazione
+   ============================================================ */
+.header {
+  background: var(--ink);
+  color: var(--carta);
+}
+
+.header-inner {
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: 1.1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.logo {
+  font-family: var(--mono);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--carta);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+.logo .cursor {
+  display: inline-block;
+  color: var(--vino-chiaro);
+  animation: blink 1.2s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+.nav { display: flex; gap: 1.6rem; }
+.nav a {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: #b9b6ad;
+  text-decoration: none;
+  padding: 0.2rem 0;
+  border-bottom: 2px solid transparent;
+}
+.nav a:hover { color: var(--carta); }
+.nav a.attiva { color: var(--carta); border-bottom-color: var(--vino-chiaro); }
+
+/* ============================================================
+   HERO — solo in home: titolo grande su banda scura
+   ============================================================ */
+.hero {
+  background: var(--ink);
+  color: var(--carta);
+  padding: 3.5rem 1.5rem 4.5rem;
+}
+
+.hero-inner { max-width: 68rem; margin: 0 auto; }
+
+.hero .kicker {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--vino-chiaro);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0 0 1rem;
+}
+
+.hero h1 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.2rem;
+  max-width: 18ch;
+}
+.hero h1 em { font-style: italic; color: var(--vino-chiaro); }
+
+.hero p {
+  color: #b9b6ad;
+  font-size: 1.15rem;
+  max-width: 44ch;
+  margin: 0;
+}
+
+/* ============================================================
+   CONTENITORI
+   ============================================================ */
+.contenuto {
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+}
+
+.contenuto-stretto {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+}
+
+.titolo-sezione {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grigio);
+  border-bottom: 1px solid var(--filo);
+  padding-bottom: 0.6rem;
+  margin: 0 0 0.5rem;
+}
+
+/* ============================================================
+   LISTA POST — riga con data a sinistra (firma del sito)
+   ============================================================ */
+.riga-post {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  gap: 1.5rem;
+  padding: 1.6rem 0;
+  border-bottom: 1px solid var(--filo);
+  align-items: baseline;
+}
+
+.riga-post .data {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--grigio);
+}
+
+.riga-post h2 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.45rem;
+  line-height: 1.25;
+  margin: 0 0 0.4rem;
+}
+.riga-post h2 a { color: var(--ink); text-decoration: none; }
+.riga-post h2 a:hover { color: var(--vino); }
+
+.riga-post .estratto {
+  margin: 0 0 0.5rem;
+  color: var(--grigio);
+  font-size: 1rem;
+}
+
+.tag {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--vino);
+  text-decoration: none;
+  margin-right: 0.6rem;
+}
+.tag:hover { text-decoration: underline; }
+
+.leggi-tutti { margin-top: 2rem; font-family: var(--mono); font-size: 0.9rem; }
+
+/* ============================================================
+   ARTICOLO
+   ============================================================ */
+.articolo-testata { margin-bottom: 2.5rem; }
+
+.articolo-testata .meta {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--grigio);
+  margin: 0 0 0.8rem;
+}
+
+.articolo-testata h1 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(1.9rem, 4.5vw, 2.8rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.8rem;
+}
+
+.articolo-testata .sottotitolo {
+  color: var(--grigio);
+  font-size: 1.2rem;
+  font-style: italic;
+  margin: 0;
+}
+
+.articolo h2 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin: 2.5rem 0 0.8rem;
+}
+
+.articolo h3 { font-size: 1.15rem; margin: 2rem 0 0.6rem; }
+
+.articolo pre {
+  background: var(--codice);
+  border: 1px solid var(--filo);
+  border-radius: 8px;
+  padding: 1.1rem 1.3rem;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+.articolo code { font-family: var(--mono); font-size: 0.9em; }
+.articolo p code, .articolo li code {
+  background: var(--codice);
+  border: 1px solid var(--filo);
+  padding: 0.05em 0.35em;
+  border-radius: 4px;
+}
+
+.articolo blockquote {
+  margin: 1.8rem 0;
+  padding: 0.2rem 0 0.2rem 1.2rem;
+  border-left: 3px solid var(--vino);
+  color: var(--grigio);
+  font-style: italic;
+}
+
+.articolo figure { margin: 2rem 0; }
+.articolo figure img { border-radius: 8px; }
+.articolo figcaption {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--grigio);
+  margin-top: 0.6rem;
+}
+
+.articolo hr { border: 0; border-top: 1px solid var(--filo); margin: 2.5rem 0; }
+
+/* Navigazione tra post */
+.nav-articoli {
+  margin-top: 3.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--filo);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+}
+.nav-articoli a { text-decoration: none; }
+.nav-articoli a:hover { text-decoration: underline; }
+
+/* ============================================================
+   PAGINA CHI SONO
+   ============================================================ */
+.profilo {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 2rem;
+  align-items: start;
+  margin-bottom: 2rem;
+}
+
+.avatar {
+  width: 9rem;
+  height: 9rem;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--carta);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--display);
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+.elenco-competenze { list-style: none; padding: 0; margin: 1rem 0; }
+.elenco-competenze li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--filo);
+}
+.elenco-competenze li::before {
+  content: "◆";
+  color: var(--vino);
+  font-size: 0.7rem;
+  margin-right: 0.7rem;
+}
+
+/* ============================================================
+   PAGINA CONTATTI
+   ============================================================ */
+.scheda-contatti { list-style: none; padding: 0; margin: 2rem 0 0; }
+
+.scheda-contatti li {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--filo);
+}
+
+.scheda-contatti .canale {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--grigio);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ============================================================
+   PAGINA 404
+   ============================================================ */
+.errore {
+  text-align: center;
+  padding: 5rem 1.5rem;
+}
+.errore .codice-errore {
+  font-family: var(--display);
+  font-size: clamp(5rem, 15vw, 9rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--vino);
+  margin: 0;
+}
+.errore p { color: var(--grigio); }
+
+/* ============================================================
+   FOOTER — banda scura
+   ============================================================ */
+.footer {
+  background: var(--ink);
+  color: #b9b6ad;
+}
+
+.footer-inner {
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+}
+
+.footer a { color: #b9b6ad; }
+.footer a:hover { color: var(--carta); }
+
+/* ============================================================
+   RESPONSIVE + ACCESSIBILITÀ
+   ============================================================ */
+@media (max-width: 640px) {
+  .riga-post,
+  .scheda-contatti li { grid-template-columns: 1fr; gap: 0.3rem; }
+  .profilo { grid-template-columns: 1fr; }
+  .avatar { width: 6.5rem; height: 6.5rem; font-size: 2.2rem; }
+  body { font-size: 1.05rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .logo .cursor { animation: none; }
+  * { transition: none !important; }
+}
