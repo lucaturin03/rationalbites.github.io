@@ -1,6 +1,6 @@
-# Bit & Bottiglie — blog statico per GitHub Pages
+# rationalbites — blog statico per GitHub Pages
 
-Sito 100% HTML + CSS, nessuna dipendenza, nessun build step.
+Sito 100% HTML + CSS + un file JS per l'header/footer comune. Nessuna build.
 
 ## Struttura
 
@@ -11,12 +11,25 @@ Sito 100% HTML + CSS, nessuna dipendenza, nessun build step.
 ├── contatti.html         # contatti
 ├── 404.html              # pagina di errore (GitHub Pages la usa in automatico)
 ├── css/style.css         # tutto lo stile del sito
+├── js/include.js         # header e footer comuni (si modificano solo qui)
 ├── img/                  # immagini degli articoli
 └── posts/                # un file HTML per ogni articolo
-    ├── benvenuto.html
-    ├── wordpress-header-sticky.html
-    └── esp32-homekit-condizionatore.html
 ```
+
+## Header e footer comuni
+
+Ogni pagina contiene solo due placeholder vuoti:
+
+```html
+<header class="header"></header>
+...
+<footer class="footer"></footer>
+<script src="js/include.js"></script>   <!-- ../js/include.js dentro posts/ -->
+```
+
+`js/include.js` li riempie al caricamento, evidenzia da solo la voce di menu
+attiva e sistema i percorsi relativi per le pagine dentro `posts/`.
+Per cambiare menu, logo o footer si modifica solo quel file.
 
 ## Pubblicare
 
@@ -25,24 +38,14 @@ Sito 100% HTML + CSS, nessuna dipendenza, nessun build step.
 3. Settings → Pages → Source: **Deploy from a branch → main / (root)**.
 4. Il sito è su `https://tuousername.github.io` dopo circa un minuto.
 
-Se usi un repo con un altro nome, il sito sarà su
-`https://tuousername.github.io/nome-repo/` — i percorsi relativi
-usati nelle pagine funzionano comunque, senza modifiche.
-
 ## Aggiungere un post
 
-1. Duplica un file in `posts/` e modifica titolo, meta, data e contenuto.
+1. Duplica un file in `posts/`, modifica titolo, meta, data e contenuto.
 2. Aggiungi la riga corrispondente in `blog.html` e (se vuoi) in `index.html`.
 3. Push.
 
 ## Personalizzare
 
-- Colori e font: tutte le variabili sono in cima a `css/style.css` (`:root`).
-- Nome del sito: cerca `bit&bottiglie` e sostituisci ovunque.
+- Colori e font: variabili in cima a `css/style.css` (`:root`).
+- Menu, logo, footer: `js/include.js`.
 - Link e email: cerca `tuousername` e `tua@email.it`.
-
-## Nota
-
-Header e footer sono ripetuti in ogni pagina: è il compromesso dell'HTML puro.
-Se in futuro i post diventano tanti e la duplicazione pesa, la struttura si
-migra a Jekyll (supportato nativamente da GitHub Pages) mantenendo lo stesso CSS.
