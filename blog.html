@@ -12,45 +12,16 @@
   <header class="header"></header>
 
   <main class="contenuto">
-    <h2 class="titolo-sezione">2026</h2>
+    <h2 class="titolo-sezione">Tutti i post</h2>
 
-    <article class="riga-post">
-      <span class="data">05 lug 2026</span>
-      <div>
-        <h2><a href="posts/esp32-homekit-condizionatore.html">Un condizionatore qualsiasi diventa HomeKit con un ESP32</a></h2>
-        <p class="estratto">Dal telecomando a infrarossi alla UART diretta: come ho collegato
-        un condizionatore Midea a HomeKit senza hub, con un ESP32-C3 da tre euro.</p>
-        <span class="tag">#esp32</span>
-        <span class="tag">#domotica</span>
-        <span class="tag">#homekit</span>
-      </div>
-    </article>
+    <div data-lista-post data-per-pagina="5"></div>
 
-    <article class="riga-post">
-      <span class="data">21 giu 2026</span>
-      <div>
-        <h2><a href="posts/wordpress-header-sticky.html">Header sticky in due parti su un tema a blocchi</a></h2>
-        <p class="estratto">I temi FSE di WordPress non prevedono un header che cambia allo scroll.
-        Si risolve con poche righe di CSS e JavaScript, senza plugin pesanti.</p>
-        <span class="tag">#wordpress</span>
-        <span class="tag">#css</span>
-        <span class="tag">#javascript</span>
-      </div>
-    </article>
-
-    <article class="riga-post">
-      <span class="data">08 giu 2026</span>
-      <div>
-        <h2><a href="posts/benvenuto.html">Benvenuti: perché questo blog</a></h2>
-        <p class="estratto">Il primo post è sempre il più difficile. Cosa troverete qui,
-        cosa non troverete, e perché ho deciso di scrivere in pubblico.</p>
-        <span class="tag">#meta</span>
-      </div>
-    </article>
+    <nav class="paginazione" data-paginazione></nav>
   </main>
 
   <footer class="footer"></footer>
 
   <script src="js/include.js"></script>
+  <script src="js/lista-post.js"></script>
 </body>
 </html>

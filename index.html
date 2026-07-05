@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Rationalbites</title>
+  <title>RationalBites</title>
   <meta name="description" content="Note su codice, elettronica, domotica e qualche bicchiere di vino.">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -22,37 +22,7 @@
   <main class="contenuto">
     <h2 class="titolo-sezione">Ultimi post</h2>
 
-    <article class="riga-post">
-      <span class="data">05 lug 2026</span>
-      <div>
-        <h2><a href="posts/esp32-homekit-condizionatore.html">Un condizionatore qualsiasi diventa HomeKit con un ESP32</a></h2>
-        <p class="estratto">Dal telecomando a infrarossi alla UART diretta: come ho collegato
-        un condizionatore Midea a HomeKit senza hub, con un ESP32-C3 da tre euro.</p>
-        <a class="tag" href="blog.html">#esp32</a>
-        <a class="tag" href="blog.html">#domotica</a>
-      </div>
-    </article>
-
-    <article class="riga-post">
-      <span class="data">21 giu 2026</span>
-      <div>
-        <h2><a href="posts/wordpress-header-sticky.html">Header sticky in due parti su un tema a blocchi</a></h2>
-        <p class="estratto">I temi FSE di WordPress non prevedono un header che cambia allo scroll.
-        Si risolve con poche righe di CSS e JavaScript, senza plugin pesanti.</p>
-        <a class="tag" href="blog.html">#wordpress</a>
-        <a class="tag" href="blog.html">#css</a>
-      </div>
-    </article>
-
-    <article class="riga-post">
-      <span class="data">08 giu 2026</span>
-      <div>
-        <h2><a href="posts/benvenuto.html">Benvenuti: perché questo blog</a></h2>
-        <p class="estratto">Il primo post è sempre il più difficile. Cosa troverete qui,
-        cosa non troverete, e perché ho deciso di scrivere in pubblico.</p>
-        <a class="tag" href="blog.html">#meta</a>
-      </div>
-    </article>
+    <div data-lista-post data-limite="3"></div>
 
     <p class="leggi-tutti"><a href="blog.html">Tutti i post →</a></p>
   </main>
@@ -60,5 +30,6 @@
   <footer class="footer"></footer>
 
   <script src="js/include.js"></script>
+  <script src="js/lista-post.js"></script>
 </body>
 </html>

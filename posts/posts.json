@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "esp32-homekit-condizionatore",
+    "titolo": "Un condizionatore qualsiasi diventa HomeKit con un ESP32",
+    "data": "05 lug 2026",
+    "dataISO": "2026-07-05",
+    "estratto": "Dal telecomando a infrarossi alla UART diretta: come ho collegato un condizionatore Midea a HomeKit senza hub, con un ESP32-C3 da tre euro.",
+    "tag": ["esp32", "domotica", "homekit"]
+  },
+  {
+    "slug": "wordpress-header-sticky",
+    "titolo": "Header sticky in due parti su un tema a blocchi",
+    "data": "21 giu 2026",
+    "dataISO": "2026-06-21",
+    "estratto": "I temi FSE di WordPress non prevedono un header che cambia allo scroll. Si risolve con poche righe di CSS e JavaScript, senza plugin pesanti.",
+    "tag": ["wordpress", "css", "javascript"]
+  },
+  {
+    "slug": "benvenuto",
+    "titolo": "Benvenuti: perché questo blog",
+    "data": "08 giu 2026",
+    "dataISO": "2026-06-08",
+    "estratto": "Il primo post è sempre il più difficile. Cosa troverete qui, cosa non troverete, e perché ho deciso di scrivere in pubblico.",
+    "tag": ["meta"]
+  }
+]

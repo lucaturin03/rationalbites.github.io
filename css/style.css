@@ -193,6 +193,23 @@ a:focus-visible { outline: 2px solid var(--vino); outline-offset: 3px; border-ra
 
 .leggi-tutti { margin-top: 2rem; font-family: var(--mono); font-size: 0.9rem; }
 
+/* Paginazione elenco post */
+.paginazione {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--filo);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+}
+.paginazione:empty { display: none; }
+.paginazione a { text-decoration: none; }
+.paginazione a:hover { text-decoration: underline; }
+.paginazione .pagina-corrente { color: var(--grigio); }
+
 /* ============================================================
    ARTICOLO
    ============================================================ */

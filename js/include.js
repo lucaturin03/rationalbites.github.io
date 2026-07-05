@@ -17,7 +17,7 @@
 
   const header = `
     <div class="header-inner">
-      <a class="logo" href="${prefix}index.html">Rationalbites<span class="cursor">_</span></a>
+      <a class="logo" href="${prefix}index.html">RationalBites<span class="cursor">_</span></a>
       <nav class="nav">
         ${nav}
       </nav>
