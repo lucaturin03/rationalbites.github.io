@@ -1,0 +1,23 @@
+---
+layout: default
+---
+<section class="intro">
+  <h1>{{ site.title }}</h1>
+  <p>{{ site.description }}</p>
+</section>
+
+<section class="post-list">
+  {% for post in site.posts limit: 10 %}
+    <article class="post-preview">
+      <p class="post-meta">
+        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%d %b %Y" }}</time>
+      </p>
+      <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+      <p>{{ post.excerpt | strip_html | truncatewords: 35 }}</p>
+    </article>
+  {% endfor %}
+</section>
+
+{% if site.posts.size > 10 %}
+  <p class="more"><a href="{{ '/archivio/' | relative_url }}">Tutti i post →</a></p>
+{% endif %}

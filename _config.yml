@@ -1,0 +1,34 @@
+# Impostazioni base del sito
+title: Il mio blog
+description: Note su codice, elettronica e altre cose che mi incuriosiscono.
+author: Luca
+lang: it
+
+# URL: per un sito utente (username.github.io) lascia baseurl vuoto.
+# Per un sito di progetto (username.github.io/nome-repo) metti baseurl: /nome-repo
+url: "https://tuousername.github.io"
+baseurl: ""
+
+# Permalink puliti: /2026/07/titolo-del-post/
+permalink: /:year/:month/:title/
+
+# Markdown e plugin supportati nativamente da GitHub Pages
+markdown: kramdown
+plugins:
+  - jekyll-feed      # genera /feed.xml automaticamente
+  - jekyll-seo-tag   # meta tag SEO e Open Graph
+  - jekyll-sitemap   # genera /sitemap.xml
+
+# Valori di default per tutti i post (così non li ripeti nel front matter)
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+# File da escludere dalla build
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
