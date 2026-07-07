@@ -5,7 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Header sticky in due parti su un tema a blocchi</title>
   <meta name="description" content="Come realizzare un header sticky a due sezioni su un tema FSE di WordPress con CSS e poche righe di JavaScript.">
+  <meta property="og:title" content="Header sticky in due parti su un tema a blocchi">
+  <meta property="og:description" content="Come realizzare un header sticky a due sezioni su un tema FSE di WordPress con CSS e poche righe di JavaScript.">
+  <meta property="og:type" content="article">
+  <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
   <link rel="stylesheet" href="../css/style.css">
+  <script>try{var t=localStorage.getItem('tema');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 </head>
 <body>
 
@@ -60,6 +65,8 @@ new IntersectionObserver(([entry]) =&gt; {
       <p>Zero calcoli a ogni frame, zero jank. Su WordPress il tutto si può
       iniettare con un plugin di snippet come WPCode, senza toccare il tema.</p>
 
+      <div class="ad-slot" data-ad="post-fine"></div>
+
       <nav class="nav-articoli">
         <a href="benvenuto.html">← Benvenuti: perché questo blog</a>
         <a href="esp32-homekit-condizionatore.html">HomeKit con un ESP32 →</a>
@@ -71,5 +78,6 @@ new IntersectionObserver(([entry]) =&gt; {
   <footer class="footer"></footer>
 
   <script src="../js/include.js"></script>
+  <script src="../js/ads.js"></script>
 </body>
 </html>

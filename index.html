@@ -5,7 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RationalBites</title>
   <meta name="description" content="Note su codice, elettronica, domotica e qualche bicchiere di vino.">
+  <meta property="og:title" content="RationalBites">
+  <meta property="og:description" content="Note su codice, elettronica, domotica e qualche bicchiere di vino.">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+  <link rel="alternate" type="application/rss+xml" title="RationalBites" href="feed.xml">
   <link rel="stylesheet" href="css/style.css">
+  <script>try{var t=localStorage.getItem('tema');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 </head>
 <body>
 
@@ -25,11 +31,14 @@
     <div data-lista-post data-limite="3"></div>
 
     <p class="leggi-tutti"><a href="blog.html">Tutti i post →</a></p>
+
+    <div class="ad-slot" data-ad="home"></div>
   </main>
 
   <footer class="footer"></footer>
 
   <script src="js/include.js"></script>
   <script src="js/lista-post.js"></script>
+  <script src="js/ads.js"></script>
 </body>
 </html>

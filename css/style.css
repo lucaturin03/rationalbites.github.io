@@ -1,22 +1,55 @@
 /* ============================================================
    STYLE.CSS — foglio di stile unico per tutto il sito
    Palette: bianco carta, inchiostro scuro, accento rosso vino
+   Tema scuro: automatico (prefers-color-scheme) o manuale
+   tramite l'attributo data-theme sull'elemento <html>.
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&display=swap');
 
 :root {
-  --carta:  #ffffff;   /* sfondo pagina */
-  --ink:    #1b1a17;   /* testo e bande scure */
-  --grigio: #6e6b63;   /* testo secondario */
-  --vino:   #7a1f33;   /* accento: link, tag, dettagli */
-  --vino-chiaro: #a34457;
-  --filo:   #e7e4dc;   /* filetti e bordi */
-  --codice: #f5f3ee;   /* sfondo blocchi codice */
+  --paper:  #ffffff;   /* sfondo pagina */
+  --ink:    #1b1a17;   /* testo principale */
+  --gray: #6e6b63;   /* testo secondario */
+  --wine:   #7a1f33;   /* accento: link, tag, dettagli */
+  --wine-light: #a34457;
+  --line:   #e7e4dc;   /* filetti e bordi */
+  --code: #f5f3ee;   /* sfondo blocchi codice */
+
+  /* Bande scure (header, hero, footer): non cambiano con il tema */
+  --band:        #1b1a17;
+  --band-text:  #f7f5ef;
+  --band-muted:  #b9b6ad;
 
   --display: "Fraunces", Georgia, serif;
-  --testo:   "Iowan Old Style", "Charter", Georgia, serif;
+  --text:   "Iowan Old Style", "Charter", Georgia, serif;
   --mono:    ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+}
+
+/* Tema scuro esplicito (toggle) */
+:root[data-theme="dark"] {
+  --paper:  #171511;
+  --ink:    #ece8df;
+  --gray: #a29d91;
+  --wine:   #c76c7f;
+  --wine-light: #da8e9c;
+  --line:   #2d2a24;
+  --code: #211f1a;
+  --band:  #100f0c;
+}
+
+/* Tema scuro di sistema, se l'utente non ha scelto manualmente */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:  #171511;
+    --ink:    #ece8df;
+    --gray: #a29d91;
+    --wine:   #c76c7f;
+    --wine-light: #da8e9c;
+    --line:   #2d2a24;
+    --code: #211f1a;
+    --band:  #100f0c;
+  }
 }
 
 /* ---------- Reset minimo ---------- */
@@ -25,25 +58,30 @@ html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  background: var(--carta);
+  background: var(--paper);
   color: var(--ink);
-  font-family: var(--testo);
+  font-family: var(--text);
   font-size: 1.125rem;
   line-height: 1.75;
+  transition: background 0.25s ease, color 0.25s ease;
 }
 
 img { max-width: 100%; height: auto; display: block; }
 
-a { color: var(--vino); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-a:hover { color: var(--vino-chiaro); }
-a:focus-visible { outline: 2px solid var(--vino); outline-offset: 3px; border-radius: 2px; }
+a { color: var(--wine); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--wine-light); }
+a:focus-visible { outline: 2px solid var(--wine); outline-offset: 3px; border-radius: 2px; }
 
 /* ============================================================
-   HEADER — banda scura con nome del sito e navigazione
+   HEADER — banda scura, sticky, con nome del sito e navigazione
    ============================================================ */
 .header {
-  background: var(--ink);
-  color: var(--carta);
+  background: var(--band);
+  color: var(--band-text);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .header-inner {
@@ -61,36 +99,69 @@ a:focus-visible { outline: 2px solid var(--vino); outline-offset: 3px; border-ra
   font-family: var(--mono);
   font-size: 1rem;
   font-weight: 700;
-  color: var(--carta);
+  color: var(--band-text);
   text-decoration: none;
   letter-spacing: 0.02em;
 }
 .logo .cursor {
   display: inline-block;
-  color: var(--vino-chiaro);
+  color: var(--wine-light);
   animation: blink 1.2s steps(1) infinite;
 }
 @keyframes blink { 50% { opacity: 0; } }
 
-.nav { display: flex; gap: 1.6rem; }
+.nav { display: flex; gap: 1.6rem; align-items: center; }
 .nav a {
   font-family: var(--mono);
   font-size: 0.82rem;
-  color: #b9b6ad;
+  color: var(--band-muted);
   text-decoration: none;
   padding: 0.2rem 0;
   border-bottom: 2px solid transparent;
 }
-.nav a:hover { color: var(--carta); }
-.nav a.attiva { color: var(--carta); border-bottom-color: var(--vino-chiaro); }
+.nav a:hover { color: var(--band-text); }
+.nav a.attiva { color: var(--band-text); border-bottom-color: var(--wine-light); }
+
+/* Toggle tema chiaro/scuro */
+.tema-toggle {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--band-muted);
+  font-size: 0.95rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+}
+.tema-toggle:hover { color: var(--band-text); border-color: var(--band-text); }
+.tema-toggle:focus-visible { outline: 2px solid var(--wine-light); outline-offset: 2px; }
+
+/* Barra di avanzamento lettura (solo negli articoli) */
+.barra-lettura {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0;
+  background: var(--wine-light);
+  z-index: 60;
+}
 
 /* ============================================================
    HERO — solo in home: titolo grande su banda scura
    ============================================================ */
 .hero {
-  background: var(--ink);
-  color: var(--carta);
+  background:
+    radial-gradient(60rem 28rem at 85% -20%, rgba(163, 68, 87, 0.28), transparent 60%),
+    var(--band);
+  color: var(--band-text);
   padding: 3.5rem 1.5rem 4.5rem;
+  border-bottom: 3px solid var(--wine);
 }
 
 .hero-inner { max-width: 68rem; margin: 0 auto; }
@@ -98,7 +169,7 @@ a:focus-visible { outline: 2px solid var(--vino); outline-offset: 3px; border-ra
 .hero .kicker {
   font-family: var(--mono);
   font-size: 0.8rem;
-  color: var(--vino-chiaro);
+  color: var(--wine-light);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   margin: 0 0 1rem;
@@ -113,10 +184,10 @@ a:focus-visible { outline: 2px solid var(--vino); outline-offset: 3px; border-ra
   margin: 0 0 1.2rem;
   max-width: 18ch;
 }
-.hero h1 em { font-style: italic; color: var(--vino-chiaro); }
+.hero h1 em { font-style: italic; color: var(--wine-light); }
 
 .hero p {
-  color: #b9b6ad;
+  color: var(--band-muted);
   font-size: 1.15rem;
   max-width: 44ch;
   margin: 0;
@@ -142,10 +213,55 @@ a:focus-visible { outline: 2px solid var(--vino); outline-offset: 3px; border-ra
   font-size: 0.8rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--grigio);
-  border-bottom: 1px solid var(--filo);
+  color: var(--gray);
+  border-bottom: 1px solid var(--line);
   padding-bottom: 0.6rem;
   margin: 0 0 0.5rem;
+}
+
+/* ============================================================
+   RICERCA E FILTRI — solo in blog.html
+   ============================================================ */
+.filtri-post {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.campo-cerca {
+  flex: 1 1 16rem;
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.55rem 0.9rem;
+}
+.campo-cerca:focus {
+  outline: none;
+  border-color: var(--wine);
+}
+.campo-cerca::placeholder { color: var(--gray); }
+
+.filtro-attivo {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--wine);
+  border: 1px solid var(--wine);
+  border-radius: 999px;
+  padding: 0.25rem 0.8rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.filtro-attivo:hover { background: var(--wine); color: var(--paper); }
+
+.nessun-risultato {
+  color: var(--gray);
+  padding: 2rem 0;
+  font-style: italic;
 }
 
 /* ============================================================
@@ -155,15 +271,19 @@ a:focus-visible { outline: 2px solid var(--vino); outline-offset: 3px; border-ra
   display: grid;
   grid-template-columns: 8.5rem 1fr;
   gap: 1.5rem;
-  padding: 1.6rem 0;
-  border-bottom: 1px solid var(--filo);
+  padding: 1.6rem 0.8rem;
+  margin: 0 -0.8rem;
+  border-bottom: 1px solid var(--line);
   align-items: baseline;
+  border-radius: 8px;
+  transition: background 0.15s ease;
 }
+.riga-post:hover { background: var(--code); }
 
 .riga-post .data {
   font-family: var(--mono);
   font-size: 0.82rem;
-  color: var(--grigio);
+  color: var(--gray);
 }
 
 .riga-post h2 {
@@ -174,18 +294,18 @@ a:focus-visible { outline: 2px solid var(--vino); outline-offset: 3px; border-ra
   margin: 0 0 0.4rem;
 }
 .riga-post h2 a { color: var(--ink); text-decoration: none; }
-.riga-post h2 a:hover { color: var(--vino); }
+.riga-post h2 a:hover { color: var(--wine); }
 
 .riga-post .estratto {
   margin: 0 0 0.5rem;
-  color: var(--grigio);
+  color: var(--gray);
   font-size: 1rem;
 }
 
 .tag {
   font-family: var(--mono);
   font-size: 0.75rem;
-  color: var(--vino);
+  color: var(--wine);
   text-decoration: none;
   margin-right: 0.6rem;
 }
@@ -197,7 +317,7 @@ a:focus-visible { outline: 2px solid var(--vino); outline-offset: 3px; border-ra
 .paginazione {
   margin-top: 2.5rem;
   padding-top: 1.5rem;
-  border-top: 1px solid var(--filo);
+  border-top: 1px solid var(--line);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -208,7 +328,7 @@ a:focus-visible { outline: 2px solid var(--vino); outline-offset: 3px; border-ra
 .paginazione:empty { display: none; }
 .paginazione a { text-decoration: none; }
 .paginazione a:hover { text-decoration: underline; }
-.paginazione .pagina-corrente { color: var(--grigio); }
+.paginazione .pagina-corrente { color: var(--gray); }
 
 /* ============================================================
    ARTICOLO
@@ -218,7 +338,7 @@ a:focus-visible { outline: 2px solid var(--vino); outline-offset: 3px; border-ra
 .articolo-testata .meta {
   font-family: var(--mono);
   font-size: 0.82rem;
-  color: var(--grigio);
+  color: var(--gray);
   margin: 0 0 0.8rem;
 }
 
@@ -232,7 +352,7 @@ a:focus-visible { outline: 2px solid var(--vino); outline-offset: 3px; border-ra
 }
 
 .articolo-testata .sottotitolo {
-  color: var(--grigio);
+  color: var(--gray);
   font-size: 1.2rem;
   font-style: italic;
   margin: 0;
@@ -248,8 +368,8 @@ a:focus-visible { outline: 2px solid var(--vino); outline-offset: 3px; border-ra
 .articolo h3 { font-size: 1.15rem; margin: 2rem 0 0.6rem; }
 
 .articolo pre {
-  background: var(--codice);
-  border: 1px solid var(--filo);
+  background: var(--code);
+  border: 1px solid var(--line);
   border-radius: 8px;
   padding: 1.1rem 1.3rem;
   overflow-x: auto;
@@ -258,8 +378,8 @@ a:focus-visible { outline: 2px solid var(--vino); outline-offset: 3px; border-ra
 }
 .articolo code { font-family: var(--mono); font-size: 0.9em; }
 .articolo p code, .articolo li code {
-  background: var(--codice);
-  border: 1px solid var(--filo);
+  background: var(--code);
+  border: 1px solid var(--line);
   padding: 0.05em 0.35em;
   border-radius: 4px;
 }
@@ -267,8 +387,8 @@ a:focus-visible { outline: 2px solid var(--vino); outline-offset: 3px; border-ra
 .articolo blockquote {
   margin: 1.8rem 0;
   padding: 0.2rem 0 0.2rem 1.2rem;
-  border-left: 3px solid var(--vino);
-  color: var(--grigio);
+  border-left: 3px solid var(--wine);
+  color: var(--gray);
   font-style: italic;
 }
 
@@ -277,17 +397,42 @@ a:focus-visible { outline: 2px solid var(--vino); outline-offset: 3px; border-ra
 .articolo figcaption {
   font-family: var(--mono);
   font-size: 0.78rem;
-  color: var(--grigio);
+  color: var(--gray);
   margin-top: 0.6rem;
 }
 
-.articolo hr { border: 0; border-top: 1px solid var(--filo); margin: 2.5rem 0; }
+.articolo hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
+
+/* Condivisione articolo (iniettata da include.js) */
+.condividi {
+  margin-top: 3rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--gray);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  align-items: center;
+}
+.condividi a, .condividi button {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--wine);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: none;
+}
+.condividi a:hover, .condividi button:hover { text-decoration: underline; }
 
 /* Navigazione tra post */
 .nav-articoli {
-  margin-top: 3.5rem;
+  margin-top: 2rem;
   padding-top: 1.5rem;
-  border-top: 1px solid var(--filo);
+  border-top: 1px solid var(--line);
   display: flex;
   justify-content: space-between;
   gap: 1rem;
@@ -296,6 +441,42 @@ a:focus-visible { outline: 2px solid var(--vino); outline-offset: 3px; border-ra
 }
 .nav-articoli a { text-decoration: none; }
 .nav-articoli a:hover { text-decoration: underline; }
+
+/* ============================================================
+   PUBBLICITÀ — slot gestiti da js/ads.js
+   Ogni slot è un <div data-ad="nome-slot"></div>.
+   ============================================================ */
+.ad-slot {
+  margin: 2.5rem auto;
+  max-width: 44rem;
+}
+
+.ad-slot .ad-etichetta {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin: 0 0 0.35rem;
+}
+
+.ad-slot .ad-box {
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  background: var(--code);
+  min-height: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.2rem;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--gray);
+}
+
+/* Quando ads.js è configurato su 'off' lo slot sparisce del tutto */
+.ad-slot:empty { display: none; margin: 0; }
 
 /* ============================================================
    PAGINA CHI SONO
@@ -312,24 +493,25 @@ a:focus-visible { outline: 2px solid var(--vino); outline-offset: 3px; border-ra
   width: 9rem;
   height: 9rem;
   border-radius: 50%;
-  background: var(--ink);
-  color: var(--carta);
+  background: var(--band);
+  color: var(--band-text);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--display);
   font-size: 3rem;
   font-weight: 600;
+  border: 3px solid var(--wine);
 }
 
 .elenco-competenze { list-style: none; padding: 0; margin: 1rem 0; }
 .elenco-competenze li {
   padding: 0.5rem 0;
-  border-bottom: 1px solid var(--filo);
+  border-bottom: 1px solid var(--line);
 }
 .elenco-competenze li::before {
   content: "◆";
-  color: var(--vino);
+  color: var(--wine);
   font-size: 0.7rem;
   margin-right: 0.7rem;
 }
@@ -344,13 +526,13 @@ a:focus-visible { outline: 2px solid var(--vino); outline-offset: 3px; border-ra
   grid-template-columns: 8.5rem 1fr;
   gap: 1.5rem;
   padding: 1rem 0;
-  border-bottom: 1px solid var(--filo);
+  border-bottom: 1px solid var(--line);
 }
 
 .scheda-contatti .canale {
   font-family: var(--mono);
   font-size: 0.82rem;
-  color: var(--grigio);
+  color: var(--gray);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
@@ -367,17 +549,18 @@ a:focus-visible { outline: 2px solid var(--vino); outline-offset: 3px; border-ra
   font-size: clamp(5rem, 15vw, 9rem);
   font-weight: 700;
   line-height: 1;
-  color: var(--vino);
+  color: var(--wine);
   margin: 0;
 }
-.errore p { color: var(--grigio); }
+.errore p { color: var(--gray); }
 
 /* ============================================================
    FOOTER — banda scura
    ============================================================ */
 .footer {
-  background: var(--ink);
-  color: #b9b6ad;
+  background: var(--band);
+  color: var(--band-muted);
+  border-top: 3px solid var(--wine);
 }
 
 .footer-inner {
@@ -392,8 +575,30 @@ a:focus-visible { outline: 2px solid var(--vino); outline-offset: 3px; border-ra
   font-size: 0.8rem;
 }
 
-.footer a { color: #b9b6ad; }
-.footer a:hover { color: var(--carta); }
+.footer a { color: var(--band-muted); }
+.footer a:hover { color: var(--band-text); }
+
+/* Torna su */
+.torna-su {
+  position: fixed;
+  right: 1.2rem;
+  bottom: 1.2rem;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--wine);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+  z-index: 40;
+}
+.torna-su.visibile { display: flex; }
+.torna-su:hover { border-color: var(--wine); }
 
 /* ============================================================
    RESPONSIVE + ACCESSIBILITÀ

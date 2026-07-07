@@ -1,0 +1,4 @@
+# ads.txt — dichiarazione dei venditori autorizzati (IAB)
+# Quando attivi Google AdSense, sostituisci pub-0000000000000000
+# con il tuo ID editore e togli il commento dalla riga seguente:
+# google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
